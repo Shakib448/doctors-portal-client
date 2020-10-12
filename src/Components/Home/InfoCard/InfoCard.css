@@ -1,0 +1,19 @@
+.info__card {
+  padding: 0 5px;
+}
+
+.info__primary {
+  background-color: #1cc7c1;
+}
+.info__dark {
+  background-color: #3a4256;
+}
+
+.info__icon {
+  font-size: 3em;
+}
+
+.info__container {
+  height: 120px;
+  padding: 40px;
+}
