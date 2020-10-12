@@ -1,15 +1,19 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Sidebar from "../Sidebar/Sidebar";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import AxiosConfig from "../../AxiosConfig/AxiosConfig";
 import AppointmentsByDate from "../AppoinmentsByDate/AppointmentsByDate";
+import { UserContext } from "../../../App";
 
 const Dashboard = () => {
+  const [loggedInUser, setLoggedInUser] = useContext(UserContext);
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [appointments, setAppointments] = useState([]);
 
-  const handleDateChange = async (date) => {
+  console.log(appointments);
+
+  const handleDateChange = (date) => {
     setSelectedDate(date);
   };
 
@@ -17,7 +21,8 @@ const Dashboard = () => {
     const handleDateFilter = async () => {
       try {
         const res = await AxiosConfig.post("/appointmentsByDate", {
-          data: selectedDate,
+          date: selectedDate,
+          email: loggedInUser.email,
         });
         setAppointments(res.data);
       } catch (error) {
@@ -26,6 +31,7 @@ const Dashboard = () => {
     };
     handleDateFilter();
   }, [selectedDate]);
+
 
   const containerStyle = {
     backgroundColor: "#F4FDFB",
